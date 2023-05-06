@@ -3744,18 +3744,25 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
 
   // src/main.ts
   var k = mo({
-    width: 640,
-    height: 480,
+    width: 1024,
+    height: 800,
     stretch: false,
     letterbox: true,
     background: [200, 200, 200]
   });
-  k.loadSprite("mark", "sprites/mark.png");
-  k.add([k.text("Hello! To get started,\nread the README."), k.scale(1, 1)]);
-  var mark = k.add([k.sprite("mark"), k.scale(5, 5), k.pos(320, 240)]);
+  k.loadSprite("wsw", "sprites/wsw.png");
+  k.add([k.text("Hello :)"), k.scale(1, 1)]);
+  var wsw = k.add([k.sprite("wsw"), k.scale(0.5, 0.5), k.pos(320, 240)]);
   var SPEED = 200;
-  k.onKeyDown("left", () => mark.move(-SPEED, 0));
-  k.onKeyDown("right", () => mark.move(SPEED, 0));
-  k.onKeyDown("up", () => mark.move(0, -SPEED));
-  k.onKeyDown("down", () => mark.move(0, SPEED));
+  k.onKeyDown("left", () => wsw.move(-SPEED, 0));
+  k.onKeyDown("right", () => wsw.move(SPEED, 0));
+  k.onKeyDown("up", () => wsw.move(0, -SPEED));
+  k.onKeyDown("down", () => wsw.move(0, SPEED));
+  k.onMouseMove((pos, delta) => {
+    wsw.moveTo(pos.sub(delta), 100);
+  });
+  k.onTouchStart((pos, t) => {
+    wsw.move(pos.x, pos.y);
+    wsw.transform.rotate(pos.angle(pos));
+  });
 })();
