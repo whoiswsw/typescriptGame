@@ -3768,7 +3768,11 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
     wsw.scaleTo(scale);
   });
   k.onTouchMove((pos, t) => {
-    wsw.moveTo(pos.x - fingerSize, pos.y - fingerSize);
-    wsw.scaleTo(pos.unit().x * pos.unit().y);
+    const scale = pos.unit().x * pos.unit().y;
+    wsw.moveTo(
+      pos.x - (wsw.width / 2 + fingerSize) * scale,
+      pos.y - (wsw.height / 2 + fingerSize) * scale
+    );
+    wsw.scaleTo(scale);
   });
 })();
