@@ -3758,12 +3758,17 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
   k.onKeyDown("right", () => wsw.move(SPEED, 0));
   k.onKeyDown("up", () => wsw.move(0, -SPEED));
   k.onKeyDown("down", () => wsw.move(0, SPEED));
+  var fingerSize = 60;
   k.onMouseMove((pos, delta) => {
-    wsw.moveTo(pos.x, pos.y);
-    wsw.scaleTo(pos.unit().x * pos.unit().y);
+    const scale = pos.unit().x * pos.unit().y;
+    wsw.moveTo(
+      pos.x - (wsw.width / 2 + fingerSize) * scale,
+      pos.y - (wsw.height / 2 + fingerSize) * scale
+    );
+    wsw.scaleTo(scale);
   });
   k.onTouchMove((pos, t) => {
-    wsw.moveTo(pos.x, pos.y);
+    wsw.moveTo(pos.x - fingerSize, pos.y - fingerSize);
     wsw.scaleTo(pos.unit().x * pos.unit().y);
   });
 })();
