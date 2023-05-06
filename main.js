@@ -3744,25 +3744,26 @@ vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
 
   // src/main.ts
   var k = mo({
-    width: 1024,
-    height: 800,
-    stretch: false,
-    letterbox: true,
+    // width: 1024,
+    // height: 800,
+    // stretch: true,
+    // letterbox: true,
     background: [200, 200, 200]
   });
   k.loadSprite("wsw", "sprites/wsw.png");
   k.add([k.text("Hello :)"), k.scale(1, 1)]);
-  var wsw = k.add([k.sprite("wsw"), k.scale(0.5, 0.5), k.pos(320, 240)]);
+  var wsw = k.add([k.sprite("wsw"), k.scale(0.5, 0.5), k.pos(100, 100)]);
   var SPEED = 200;
   k.onKeyDown("left", () => wsw.move(-SPEED, 0));
   k.onKeyDown("right", () => wsw.move(SPEED, 0));
   k.onKeyDown("up", () => wsw.move(0, -SPEED));
   k.onKeyDown("down", () => wsw.move(0, SPEED));
   k.onMouseMove((pos, delta) => {
-    wsw.moveTo(pos.sub(delta), 100);
+    wsw.moveTo(pos.x, pos.y);
+    wsw.scaleTo(pos.unit().x * pos.unit().y);
   });
-  k.onTouchStart((pos, t) => {
-    wsw.move(pos.x, pos.y);
-    wsw.transform.rotate(pos.angle(pos));
+  k.onTouchMove((pos, t) => {
+    wsw.moveTo(pos.x, pos.y);
+    wsw.scaleTo(pos.unit().x * pos.unit().y);
   });
 })();
